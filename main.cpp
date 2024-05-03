@@ -2,6 +2,10 @@
 #include <windows.h>
 #include <cstdlib>
 #include <conio.h>
+#define tuongtrai 10
+#define tuongphai 70
+#define tuongtren 5
+#define tuongduoi 25
 using namespace std;
 void gotoxy( int column, int line );
 struct Point{
@@ -19,8 +23,15 @@ public:
     }
     void Ve(){
         for (int i = 0; i < DoDai; i++){
-            gotoxy(A[i].x,A[i].y);
-            cout<<"X";
+            if(i==0)
+            {
+                gotoxy(A[i].x,A[i].y);
+            cout<<"O";
+            }
+            else{
+                gotoxy(A[i].x,A[i].y);
+            cout<<"o";
+            }
         }
     }
     void DiChuyen(int Huong){
@@ -32,13 +43,15 @@ public:
         if (Huong==3) A[0].y = A[0].y - 1;
     }
 };
-
+void Ve_Tuong();
+bool operator==(Point A,Point B);
+bool AnQua(QUA qua,CONRAN r);
 int main()
 {
     CONRAN r;
     int Huong = 0;
     char t;
-
+Ve_Tuong();
     while (1){
         if (kbhit()){
             t = getch();
@@ -47,15 +60,32 @@ int main()
             if (t=='d') Huong = 0;
             if (t=='s') Huong = 1;
         }
-        system("cls");
+        //system("cls");
+        //r.DiChuyen(Huong);
         r.Ve();
-        r.DiChuyen(Huong);
         Sleep(300);
     }
 
     return 0;
 }
+typedef struct Point{
+    int x,y;
+}Point;
+class QUA{
+    public:
+    struct Point A;
+    QUA(){
+        int x=rand()%(tuongphai-tuongtrai+1)+tuongtrai;
+        int y=rand()%(tuongduoi-tuongtren+1)+tuongtren;
+        A.x=x;
+        A.y=y;
+    }
+    void Ve(){
+            gotoxy(A.x,A.y);
+            cout<<"#";
+        }
 
+};
 
 void gotoxy( int column, int line )
   {
@@ -67,3 +97,4 @@ void gotoxy( int column, int line )
     coord
     );
   }
+
